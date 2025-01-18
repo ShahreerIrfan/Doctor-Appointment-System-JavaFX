@@ -64,7 +64,7 @@ public class LoginController {
                         fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/adminDashboard.fxml"));
                         break;
                     case "Doctor":
-                        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/doctorDashboard.fxml"));
+                        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Doctor/doctorDashboard.fxml"));
                         break;
                     case "Patient":
                         fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/patientDashboard.fxml"));
