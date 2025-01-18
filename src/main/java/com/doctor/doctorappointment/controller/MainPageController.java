@@ -12,11 +12,12 @@ import java.io.IOException;
 
 public class MainPageController {
 
+
     @FXML
     private void goToRegistrationPage(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/registration.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 600);
-        // Get the stage from the event source
+        Scene scene = new Scene(fxmlLoader.load(), 750, 700);
+
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setTitle("Registration Page");
         stage.setScene(scene);
@@ -27,7 +28,6 @@ public class MainPageController {
     private void goToLoginPage(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        // Get the stage from the event source
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.setTitle("Login Page");
         stage.setScene(scene);
