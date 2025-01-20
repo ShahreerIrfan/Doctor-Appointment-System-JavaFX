@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.doctor.doctorappointment.controller.PatientDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="800.0"
+            style="-fx-background-color: #f4f7fc; -fx-font-family: 'Segoe UI', sans-serif;">
 
+    <children>
+        <!-- Header Section -->
+        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="800.0"
+              style="-fx-background-color: #1AA7EC;">
+            <children>
+                <Label text="Patient Dashboard" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
+            </children>
+        </VBox>
+
+        <!-- Main Content -->
+        <HBox layoutY="100.0" spacing="20.0" alignment="CENTER">
+            <children>
+                <!-- Left Panel -->
+                <VBox prefWidth="250.0" spacing="10.0"
+                      style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-border-color: #ccc; -fx-border-width: 1px;">
+                    <children>
+                        <Button text="View Profile" onAction="#viewProfile"
+                                style="-fx-background-color: #f0f4ff; -fx-border-radius: 5px; -fx-padding: 10px;" />
+                        <Button text="View Appointments" onAction="#viewAppointments"
+                                style="-fx-background-color: #f0f4ff; -fx-border-radius: 5px; -fx-padding: 10px;" />
+                        <Button text="Logout" onAction="#logout"
+                                style="-fx-background-color: #ffcccc; -fx-border-radius: 5px; -fx-padding: 10px;" />
+                    </children>
+                </VBox>
+
+                <!-- Right Panel -->
+                <VBox prefWidth="500.0" spacing="10.0" style="-fx-padding: 20px;">
+                    <children>
+                        <Label text="Welcome, [Patient Name]!" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                        <TextArea fx:id="mainContentArea" prefHeight="400.0" prefWidth="480.0"
+                                  style="-fx-border-color: #ccc; -fx-border-radius: 5px;"
+                                  promptText="Main content area for displaying information." />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>

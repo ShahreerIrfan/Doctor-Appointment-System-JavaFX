@@ -67,7 +67,7 @@ public class LoginController {
                         fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Doctor/doctorDashboard.fxml"));
                         break;
                     case "Patient":
-                        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/patientDashboard.fxml"));
+                        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Patient/patientDashboard.fxml"));
                         break;
                     default:
                         showAlert(Alert.AlertType.ERROR, "Role Error", "Invalid user role.");
