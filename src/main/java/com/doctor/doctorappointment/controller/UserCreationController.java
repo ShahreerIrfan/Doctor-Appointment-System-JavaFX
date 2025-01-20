@@ -14,10 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserCreationController {
 
@@ -56,14 +53,16 @@ public class UserCreationController {
         }
 
         // Check if email already exists
-        String selectQuery = "SELECT COUNT(*) FROM Users WHERE email = '" + email + "'";
+        String selectQuery = "SELECT COUNT(*) FROM Users WHERE email = ?";
         try (Connection connection = DatabaseConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(selectQuery)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
 
-            if (resultSet.next() && resultSet.getInt(1) > 0) {
-                showAlert(Alert.AlertType.WARNING, "Email Already Exists", "This email is already associated with an existing account.");
-                return;
+            preparedStatement.setString(1, email);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next() && resultSet.getInt(1) > 0) {
+                    showAlert(Alert.AlertType.WARNING, "Email Already Exists", "This email is already associated with an existing account.");
+                    return;
+                }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -72,33 +71,30 @@ public class UserCreationController {
         }
 
         // Proceed to save the new user
-        User user = new User(username, firstName, lastName, email, password, role, phoneNumber);
-        String insertQuery = "INSERT INTO Users (username, first_name, last_name, email, password, role, phone_number) VALUES ('" +
-                user.getUsername() + "', '" +
-                user.getFirstName() + "', '" +
-                user.getLastName() + "', '" +
-                user.getEmail() + "', '" +
-                user.getPassword() + "', '" +
-                user.getRole() + "', '" +
-                user.getPhoneNumber() + "')";
+        User user = new User(0, username, firstName, lastName, email, password, role, phoneNumber);  // ID will be auto-generated
+        String insertQuery = "INSERT INTO Users (username, first_name, last_name, email, password, role, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        boolean success = DatabaseConnection.executeInsertQuery(insertQuery);
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-        if (success) {
-            showAlert(Alert.AlertType.INFORMATION, "User Created", "User created successfully!");
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/login.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                stage.setTitle("Login Page");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load the login page.");
-                e.printStackTrace();
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setString(6, user.getRole());
+            preparedStatement.setString(7, user.getPhoneNumber());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                showAlert(Alert.AlertType.INFORMATION, "User Created", "User created successfully!");
+                goToLoginPage(event);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to create user.");
             }
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to create user.");
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to insert user into database.");
         }
     }
 

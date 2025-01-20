@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Pos?>
+<?import javafx.util.Callback?>
 
 <AnchorPane fx:id="manageDoctorsPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.doctor.doctorappointment.controller.ManageDoctorsController">
 
@@ -12,20 +13,21 @@
         <!-- Table for displaying doctors -->
         <TableView fx:id="doctorTableView" prefWidth="700.0" prefHeight="300.0">
             <columns>
-                <TableColumn fx:id="doctorIdColumn" text="ID" prefWidth="50.0" />
-                <TableColumn fx:id="doctorNameColumn" text="Name" prefWidth="150.0" />
-                <TableColumn fx:id="doctorEmailColumn" text="Email" prefWidth="200.0" />
-                <TableColumn fx:id="doctorPhoneColumn" text="Phone" prefWidth="150.0" />
-                <TableColumn fx:id="doctorRoleColumn" text="Role" prefWidth="100.0" />
+                <TableColumn fx:id="doctorIdColumn" text="ID" prefWidth="50.0" style="-fx-alignment: center;" />
+                <TableColumn fx:id="doctorNameColumn" text="Name" prefWidth="150.0" style="-fx-alignment: center;" />
+                <TableColumn fx:id="doctorEmailColumn" text="Email" prefWidth="200.0" style="-fx-alignment: center;" />
+                <TableColumn fx:id="doctorPhoneColumn" text="Phone" prefWidth="150.0" style="-fx-alignment: center;" />
+                <TableColumn fx:id="doctorRoleColumn" text="Role" prefWidth="100.0" style="-fx-alignment: center;" />
             </columns>
         </TableView>
 
         <HBox spacing="20" alignment="CENTER">
-            <Button fx:id="addDoctorBtn" text="Add Doctor" onAction="#addDoctor" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
+            <!-- Edit and Delete Doctor Buttons -->
             <Button fx:id="editDoctorBtn" text="Edit Doctor" onAction="#editDoctor" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" />
             <Button fx:id="deleteDoctorBtn" text="Delete Doctor" onAction="#deleteDoctor" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" />
         </HBox>
 
+        <!-- Back Button -->
         <Button fx:id="backBtn" layoutX="650.0" layoutY="30.0" onAction="#goBack" prefWidth="100.0" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" text="Back" />
     </VBox>
 </AnchorPane>

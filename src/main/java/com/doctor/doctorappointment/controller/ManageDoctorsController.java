@@ -2,6 +2,9 @@ package com.doctor.doctorappointment.controller;
 
 import com.doctor.doctorappointment.HelloApplication;
 import com.doctor.doctorappointment.model.User;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,27 +59,44 @@ public class ManageDoctorsController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        // Set up the columns to map to the User properties
+        doctorIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()).asObject());
+        doctorNameColumn.setCellValueFactory(cellData -> {
+            User user = cellData.getValue();
+            return new SimpleStringProperty(user.getFirstName() + " " + user.getLastName());
+        });
+        doctorEmailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
+        doctorPhoneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhoneNumber()));
+        doctorRoleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRole()));
     }
 
     // Load doctors from the database and populate the table
     private void loadDoctorData() {
         List<User> doctorList = new ArrayList<>();
-        String query = "SELECT * FROM Users WHERE role = 'Doctor'";
+        String query = "SELECT * FROM Users WHERE role = 'Doctor'"; // Fetch only doctors
 
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
                 int id = rs.getInt("user_id");
+                String username = rs.getString("username");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
                 String phoneNumber = rs.getString("phone_number");
 
-                User doctor = new User(id, firstName, lastName, email, null, "Doctor", phoneNumber);
+                // Create the User object directly
+                User doctor = new User(id, username, firstName, lastName, email, password, role, phoneNumber);
+
+                // Add the doctor to the list
                 doctorList.add(doctor);
             }
 
+            // Set the data to the table
             doctorTableView.getItems().setAll(doctorList);
 
         } catch (SQLException e) {

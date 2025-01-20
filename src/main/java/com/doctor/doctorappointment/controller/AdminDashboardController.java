@@ -63,8 +63,9 @@ public class AdminDashboardController {
     private User getCurrentUser() {
         // Here you would retrieve the current logged-in user from your session or database
         // This is just a mock-up user for the example
-        return new User("johndoe", "John", "Doe", "johndoe@example.com", "password", "Doctor", "5551234567");
+        return new User(1, "johndoe", "John", "Doe", "johndoe@example.com", "password", "Doctor", "5551234567");
     }
+
 
     private void hideAdminButtons() {
         manageDoctorsBtn.setVisible(false);
@@ -110,7 +111,7 @@ public class AdminDashboardController {
     @FXML
     private void manageDoctors(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/manageDoctors.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Doctor/manageDoctors.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             stage.setTitle("Manage Doctors");
@@ -121,6 +122,7 @@ public class AdminDashboardController {
             e.printStackTrace();
         }
     }
+
 
     // Handle the action for viewing payments (Admin-specific)
     @FXML
