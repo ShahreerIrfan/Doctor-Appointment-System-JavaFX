@@ -35,8 +35,11 @@ public class DatabaseConnection {
      }
 
 
-    public static ResultSet executeSelectQuery(String query) {
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+    public static ResultSet executeSelectQuery(String query, Statement[] statementHolder) {
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            statementHolder[0] = statement; // Pass the statement back to the caller
             return statement.executeQuery(query);
         } catch (SQLException ex) {
             ex.printStackTrace();

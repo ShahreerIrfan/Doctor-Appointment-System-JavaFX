@@ -23,7 +23,10 @@
             <Button fx:id="viewDashboardAnalyticsBtn" prefWidth="200.0" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="View Analytics" />
         </VBox>
       <Button fx:id="manageDoctorsBtn" layoutX="10.0" layoutY="55.0" onAction="#manageDoctors" prefWidth="200.0" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Create Appointment" />
-      <Button fx:id="createAppointmentBtn2" layoutX="10.0" layoutY="55.0" prefWidth="200.0" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Create Appointment" />
+        <Button fx:id="createAppointmentBtn2" layoutX="10.0" layoutY="55.0" prefWidth="200.0"
+                style="-fx-background-color: #1AA7EC; -fx-text-fill: white;"
+                text="Create Appointment" onAction="#createAppointment" />
+
 
     </VBox>
 
