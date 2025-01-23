@@ -12,17 +12,14 @@ public class DatabaseConnection {
     private static final String USER = "root";
     private static final String PASSWORD = "password";
 
-
     public static Connection getConnection() {
         try {
-
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
     }
-
 
     public static boolean executeInsertQuery(String query) {
         try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
@@ -32,8 +29,7 @@ public class DatabaseConnection {
             ex.printStackTrace();
             return false;
         }
-     }
-
+    }
 
     public static ResultSet executeSelectQuery(String query, Statement[] statementHolder) {
         try {
@@ -46,7 +42,6 @@ public class DatabaseConnection {
             return null;
         }
     }
-
 
     public static void closeResources(Connection connection, Statement statement, ResultSet resultSet) {
         try {

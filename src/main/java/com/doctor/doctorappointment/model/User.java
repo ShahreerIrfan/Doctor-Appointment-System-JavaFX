@@ -23,6 +23,17 @@ public class User {
         this.role = new SimpleStringProperty(role);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
     }
+    public User(int userId, String name) {
+        this.userId = new SimpleIntegerProperty(userId);
+        this.username = new SimpleStringProperty(name); // Assuming the name can be passed as username here.
+        this.firstName = new SimpleStringProperty(""); // Set defaults or empty values
+        this.lastName = new SimpleStringProperty("");
+        this.email = new SimpleStringProperty("");
+        this.password = new SimpleStringProperty("");
+        this.role = new SimpleStringProperty("");
+        this.phoneNumber = new SimpleStringProperty("");
+    }
+
 
     // Constructor with fewer parameters (useful for scenarios like viewing or editing doctors)
     public User(int userId, StringProperty username, String firstName, String lastName, String email, StringProperty password, String role, String phoneNumber) {

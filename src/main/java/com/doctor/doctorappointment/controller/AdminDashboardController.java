@@ -5,6 +5,7 @@ import com.doctor.doctorappointment.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
@@ -37,6 +38,8 @@ public class AdminDashboardController {
     @FXML
     private Button logoutBtn;
 
+    @FXML
+    private Button createAppointmentButton;
     private User currentUser;
 
     // Initialize the dashboard based on user role
@@ -48,7 +51,7 @@ public class AdminDashboardController {
             // Show only the doctor-related buttons
             viewAppointmentsBtn.setVisible(true);
             createAppointmentBtn.setVisible(true);
-            hideAdminButtons();
+//            hideAdminButtons();
         } else if ("Admin".equals(currentUser.getRole())) {
             // Show all admin-related buttons
             manageDoctorsBtn.setVisible(true);
@@ -67,13 +70,13 @@ public class AdminDashboardController {
     }
 
 
-    private void hideAdminButtons() {
-        manageDoctorsBtn.setVisible(false);
-        viewPaymentsBtn.setVisible(false);
-        manageSpecializationsBtn.setVisible(false);
-        viewPatientAppointmentsBtn.setVisible(false);
-        viewDashboardAnalyticsBtn.setVisible(false);
-    }
+//    private void hideAdminButtons() {
+//        manageDoctorsBtn.setVisible(false);
+//        viewPaymentsBtn.setVisible(false);
+//        manageSpecializationsBtn.setVisible(false);
+//        viewPatientAppointmentsBtn.setVisible(false);
+//        viewDashboardAnalyticsBtn.setVisible(false);
+//    }
 
     // Handle the action for viewing appointments
     @FXML
@@ -93,16 +96,20 @@ public class AdminDashboardController {
 
     // Handle the action for creating appointments
     @FXML
-    private void createAppointment(ActionEvent event) {
+    private void createAppointment() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Doctor/createAppointment.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            stage.setTitle("Create Appointment");
+            // Assuming the manage appointments FXML is named manageAppointments.fxml
+
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Appointment/createAppointment.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Create a new stage for the Manage Appointments screen
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Manage Appointments");
             stage.show();
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load the create appointment page.");
             e.printStackTrace();
         }
     }

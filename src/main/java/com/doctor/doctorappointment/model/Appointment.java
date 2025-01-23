@@ -4,17 +4,18 @@ public class Appointment {
     private int appointmentId;
     private String patientName;
     private String doctorName;
+    private String serviceName;
     private String appointmentDate;
+    private String status;
 
-    // Constructor
-    public Appointment(int appointmentId, String patientName, String doctorName, String appointmentDate) {
+    // Constructor with all attributes
+    public Appointment(int appointmentId, String patientName, String doctorName, String serviceName, String appointmentDate, String status) {
         this.appointmentId = appointmentId;
         this.patientName = patientName;
         this.doctorName = doctorName;
+        this.serviceName = serviceName;
         this.appointmentDate = appointmentDate;
-    }
-
-    public Appointment(int appointmentId, String patientName, String doctorName, String serviceName, String appointmentDate, String status) {
+        this.status = status;
     }
 
     // Getters
@@ -30,7 +31,15 @@ public class Appointment {
         return doctorName;
     }
 
+    public String getServiceName() {
+        return serviceName;
+    }
+
     public String getAppointmentDate() {
         return appointmentDate;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

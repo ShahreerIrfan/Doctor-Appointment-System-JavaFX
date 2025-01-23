@@ -1,21 +1,27 @@
 package com.doctor.doctorappointment.controller;
 
 import com.doctor.doctorappointment.DatabaseConnection;
+import com.doctor.doctorappointment.HelloApplication;
 import com.doctor.doctorappointment.model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ManageAppointmentsController {
 
-    // ObservableList to store appointments
     private ObservableList<Appointment> appointmentsList = FXCollections.observableArrayList();
 
     @FXML
@@ -36,7 +42,21 @@ public class ManageAppointmentsController {
 
     @FXML
     public void addAppointment() {
-        System.out.println("Add Appointment button clicked!");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Appointment/addAppointment.fxml"));
+            Scene addAppointmentScene = new Scene(fxmlLoader.load(), 400, 300);
+
+            Stage addAppointmentStage = new Stage();
+            addAppointmentStage.setTitle("Add Appointment");
+            addAppointmentStage.setScene(addAppointmentScene);
+            addAppointmentStage.show();
+
+            AddAppointmentController addAppointmentController = fxmlLoader.getController();
+            addAppointmentController.setManageAppointmentsController(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -56,7 +76,6 @@ public class ManageAppointmentsController {
 
     @FXML
     public void initialize() {
-        // Initialize table columns
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         patientColumn.setCellValueFactory(new PropertyValueFactory<>("patientName"));
         doctorColumn.setCellValueFactory(new PropertyValueFactory<>("doctorName"));
@@ -64,15 +83,17 @@ public class ManageAppointmentsController {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // Bind the ObservableList to the TableView
         appointmentTableView.setItems(appointmentsList);
-
-        // Load data into the list
         loadAppointments();
     }
 
     public void loadAppointments() {
-        String query = "SELECT * FROM appointments";
+        String query = "SELECT a.appointment_id, CONCAT(p.patient_name) AS patient_name, " +
+                "d.doctor_name, s.service_name, a.appointment_date, a.status " +
+                "FROM appointmentsd a " +
+                "JOIN Patientsd p ON a.patient_id = p.patient_id " +
+                "JOIN Doctorsd d ON a.doctor_id = d.doctor_id " +
+                "JOIN Servicesd s ON a.service_id = s.service_id";
         Statement[] statementHolder = new Statement[1];
         ResultSet resultSet = DatabaseConnection.executeSelectQuery(query, statementHolder);
 
@@ -102,6 +123,20 @@ public class ManageAppointmentsController {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        }
+    }
+
+    @FXML
+    private void goBack(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/adminDashboard.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.setTitle("Admin Dashboard");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

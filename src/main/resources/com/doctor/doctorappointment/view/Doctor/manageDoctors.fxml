@@ -5,29 +5,28 @@
 <?import javafx.geometry.Pos?>
 <?import javafx.util.Callback?>
 
-<AnchorPane fx:id="manageAppointmentsPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.doctor.doctorappointment.controller.ManageAppointmentsController">
+<AnchorPane fx:id="manageDoctorsPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.doctor.doctorappointment.controller.ManageDoctorsController">
 
     <VBox layoutX="50.0" layoutY="50.0" spacing="20" alignment="TOP_CENTER">
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Manage Appointments" textFill="#1AA7EC" />
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Manage Doctors" textFill="#1AA7EC" />
 
-        <TableView fx:id="appointmentTableView" prefWidth="700.0" prefHeight="300.0">
+        <TableView fx:id="doctorTableView" prefWidth="700.0" prefHeight="300.0">
             <columns>
-                <TableColumn fx:id="appointmentIdColumn" text="ID" prefWidth="50.0" />
-                <TableColumn fx:id="patientColumn" text="Patient" prefWidth="150.0" />
-                <TableColumn fx:id="doctorColumn" text="Doctor" prefWidth="150.0" />
-                <TableColumn fx:id="serviceColumn" text="Service" prefWidth="150.0" />
-                <TableColumn fx:id="dateColumn" text="Date" prefWidth="100.0" />
-                <TableColumn fx:id="statusColumn" text="Status" prefWidth="100.0" />
+                <TableColumn fx:id="doctorIdColumn" text="ID" prefWidth="50.0" />
+                <TableColumn fx:id="doctorNameColumn" text="Doctor Name" prefWidth="150.0" />
+                <TableColumn fx:id="doctorEmailColumn" text="Email" prefWidth="200.0" />
+                <TableColumn fx:id="doctorPhoneColumn" text="Phone" prefWidth="150.0" />
+                <TableColumn fx:id="doctorRoleColumn" text="Role" prefWidth="150.0" />
             </columns>
         </TableView>
 
         <HBox spacing="20" alignment="CENTER">
-            <Button fx:id="addAppointmentBtn" text="Add Appointment" onAction="#addAppointment" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
-            <Button fx:id="editAppointmentBtn" text="Edit Appointment" onAction="#editAppointment" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
-            <Button fx:id="deleteAppointmentBtn" text="Delete Appointment" onAction="#deleteAppointment" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" />
+            <Button fx:id="addDoctorBtn" text="Add Doctor" onAction="#addDoctor" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
+            <Button fx:id="editDoctorBtn" text="Edit Doctor" onAction="#editDoctor" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
+            <Button fx:id="deleteDoctorBtn" text="Delete Doctor" onAction="#deleteDoctor" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" />
         </HBox>
 
         <Button fx:id="backBtn" onAction="#goBack" text="Back" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" prefWidth="100.0" />
     </VBox>
-</AnchorPane>
 
+</AnchorPane>

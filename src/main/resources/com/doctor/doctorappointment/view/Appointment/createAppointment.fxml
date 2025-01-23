@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Pos?>
 
 <AnchorPane fx:id="manageAppointmentsPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.doctor.doctorappointment.controller.ManageAppointmentsController">
-
     <VBox layoutX="50.0" layoutY="50.0" spacing="20" alignment="TOP_CENTER">
         <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Manage Appointments" textFill="#1AA7EC" />
-
-        <!-- Appointment Table -->
         <TableView fx:id="appointmentTableView" prefWidth="700.0" prefHeight="300.0">
             <columns>
                 <TableColumn fx:id="appointmentIdColumn" text="ID" prefWidth="50.0" />
@@ -20,15 +16,11 @@
                 <TableColumn fx:id="statusColumn" text="Status" prefWidth="100.0" />
             </columns>
         </TableView>
-
-        <!-- Buttons -->
         <HBox spacing="20" alignment="CENTER">
             <Button fx:id="addAppointmentBtn" text="Add Appointment" onAction="#addAppointment" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
             <Button fx:id="editAppointmentBtn" text="Edit Appointment" onAction="#editAppointment" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
             <Button fx:id="deleteAppointmentBtn" text="Delete Appointment" onAction="#deleteAppointment" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" />
         </HBox>
-
-        <!-- Back Button -->
         <Button fx:id="backBtn" onAction="#goBack" text="Back" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" prefWidth="100.0" />
     </VBox>
 </AnchorPane>
