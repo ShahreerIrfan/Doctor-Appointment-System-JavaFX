@@ -173,7 +173,7 @@ public class ManageAppointmentsController {
     @FXML
     private void goBack(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/adminDashboard.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/adminDashboard.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             stage.setTitle("Admin Dashboard");

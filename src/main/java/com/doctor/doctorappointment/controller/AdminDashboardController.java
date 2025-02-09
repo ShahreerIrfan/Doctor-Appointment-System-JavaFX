@@ -7,13 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class AdminDashboardController {
+
     @FXML
     private Button viewAppointmentsBtn;
 
@@ -39,7 +40,7 @@ public class AdminDashboardController {
     private Button logoutBtn;
 
     @FXML
-    private Button createAppointmentButton;
+    private Button addPatientBtn; // Add Patient Button
     private User currentUser;
 
 
@@ -47,33 +48,41 @@ public class AdminDashboardController {
         currentUser = getCurrentUser();
 
         if ("Doctor".equals(currentUser.getRole())) {
-
             viewAppointmentsBtn.setVisible(true);
             createAppointmentBtn.setVisible(true);
-
-        }
-
-        else if ("Admin".equals(currentUser.getRole())) {
-
+        } else if ("Admin".equals(currentUser.getRole())) {
             manageDoctorsBtn.setVisible(true);
             viewPaymentsBtn.setVisible(true);
             manageSpecializationsBtn.setVisible(true);
             viewPatientAppointmentsBtn.setVisible(true);
             viewDashboardAnalyticsBtn.setVisible(true);
+            addPatientBtn.setVisible(true); // Make "Add Patient" button visible for Admin
         }
-
-
     }
-
 
     private User getCurrentUser() {
-
-        return new User(1, "johndoe", "John", "Doe", "johndoe@example.com", "password", "Doctor", "5551234567");
+        // In a real-world scenario, the user data would come from a login session or database.
+        return new User(1, "johndoe", "John", "Doe", "johndoe@example.com", "password", "Admin", "5551234567");
     }
 
+    @FXML
+    private void addPatient(ActionEvent event) {
+        try {
+            // Load the FXML file for the Add Patient screen
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Patient/addPatient.fxml"));
+            Parent root = fxmlLoader.load();
 
-
-
+            // Create a new stage and scene for the Add Patient window
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Add Patient");
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to load the Add Patient page.");
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void viewAppointments(ActionEvent event) {
@@ -90,16 +99,11 @@ public class AdminDashboardController {
         }
     }
 
-
     @FXML
     private void createAppointment() {
         try {
-
-
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Appointment/createAppointment.fxml"));
             Parent root = fxmlLoader.load();
-
-
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -109,7 +113,6 @@ public class AdminDashboardController {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void manageDoctors(ActionEvent event) {
@@ -126,7 +129,6 @@ public class AdminDashboardController {
         }
     }
 
-
     @FXML
     private void viewPayments(ActionEvent event) {
         try {
@@ -141,7 +143,6 @@ public class AdminDashboardController {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void manageSpecializations(ActionEvent event) {
@@ -158,11 +159,10 @@ public class AdminDashboardController {
         }
     }
 
-
     @FXML
     private void viewPatientAppointments(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/viewPatientAppointments.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Appointment/createAppointment.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             stage.setTitle("View Patient Appointments");
@@ -173,7 +173,6 @@ public class AdminDashboardController {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void viewDashboardAnalytics(ActionEvent event) {
@@ -190,7 +189,6 @@ public class AdminDashboardController {
         }
     }
 
-
     @FXML
     private void logout(ActionEvent event) {
         showAlert(Alert.AlertType.CONFIRMATION, "Log Out", "Are you sure you want to logout?");
@@ -206,7 +204,6 @@ public class AdminDashboardController {
             e.printStackTrace();
         }
     }
-
 
     private boolean showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

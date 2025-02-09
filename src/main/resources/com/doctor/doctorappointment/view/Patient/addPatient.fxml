@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Pos?>
+
+<AnchorPane fx:id="addPatientPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.doctor.doctorappointment.controller.AddPatientController">
+    <VBox layoutX="50.0" layoutY="50.0" spacing="20" alignment="CENTER">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Add Patient" textFill="#1AA7EC"/>
+
+        <TextField fx:id="patientNameField" promptText="Enter Patient Name" prefWidth="300.0"/>
+        <TextField fx:id="contactInfoField" promptText="Enter Contact Info" prefWidth="300.0"/>
+
+        <Button fx:id="savePatientBtn" text="Save Patient" onAction="#savePatient" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" />
+        <Button fx:id="cancelBtn" text="Cancel" onAction="#cancel" style="-fx-background-color: #FF4D4D; -fx-text-fill: white;" />
+    </VBox>
+</AnchorPane>
