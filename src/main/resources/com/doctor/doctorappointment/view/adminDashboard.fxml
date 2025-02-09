@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="dashboardPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.doctor.doctorappointment.controller.AdminDashboardController">
 
-    <!-- Title Section -->
+       <!-- Title Section -->
     <Label layoutX="320.0" layoutY="30.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Admin Dashboard" textFill="#1AA7EC" />
 
     <!-- Navigation Buttons (Common for both Admin and Doctor roles) -->
@@ -15,15 +16,15 @@
         <!-- Doctor-related Buttons -->
         <Button fx:id="viewAppointmentsBtn" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="View Appointments" visible="false" />
         <Button fx:id="createAppointmentBtn" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Create Appointment" visible="false" />
-      <Button mnemonicParsing="false" onAction="#manageDoctors" text="Doctor's" />
-      <Button layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#createAppointment" text="Appointments" />
-
-        <!-- Admin-related Buttons -->
-        <Button fx:id="manageDoctorsBtn" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Manage Doctors" />
-        <Button fx:id="viewPaymentsBtn" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="View Payments" />
-        <Button fx:id="manageSpecializationsBtn" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Manage Specializations" />
-        <Button fx:id="viewPatientAppointmentsBtn" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="View Patient Appointments" />
-        <Button fx:id="viewDashboardAnalyticsBtn" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="View Analytics" />
+      <Label text="Admin Control">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="viewDashboardAnalyticsBtn1" onAction="#createAppointment" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="View Patient Appointments" />
+        <Button onAction="#manageDoctors" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Manage Doctors" />
+        <Button fx:id="viewPaymentsBtn" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Add Doctor's" />
+        <Button fx:id="manageSpecializationsBtn" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #1AA7EC; -fx-text-fill: white;" text="Add Patient" />
     </VBox>
 
     <!-- Analytics Section (Common for Admin) -->

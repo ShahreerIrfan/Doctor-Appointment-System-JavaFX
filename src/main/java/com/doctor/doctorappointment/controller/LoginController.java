@@ -35,30 +35,30 @@ public class LoginController {
             return;
         }
 
-        // SQL query to check if the username and password are correct
+
         String query = "SELECT * FROM Users WHERE username = ? AND password = ?";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            // Set the username and password parameters
+
             statement.setString(1, username);
             statement.setString(2, password);
 
-            // Execute the query
+
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                // Successful login
+
                 showAlert(Alert.AlertType.INFORMATION, "Login Success", "You have logged in successfully!");
 
-                // Get the user's role (for role-based navigation)
+
                 String role = resultSet.getString("role");
 
-                // Redirect to the main application screen (or dashboard)
+
                 FXMLLoader fxmlLoader = null;
 
-                // Load dashboard based on the user role
+
                 switch (role) {
                     case "Admin":
                         fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/adminDashboard.fxml"));
@@ -80,7 +80,7 @@ public class LoginController {
                 stage.setScene(scene);
                 stage.show();
             } else {
-                // Login failed
+
                 showAlert(Alert.AlertType.ERROR, "Login Failed", "Incorrect username or password!");
             }
         } catch (SQLException | IOException ex) {

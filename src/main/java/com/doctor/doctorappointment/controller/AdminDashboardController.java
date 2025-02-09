@@ -42,43 +42,39 @@ public class AdminDashboardController {
     private Button createAppointmentButton;
     private User currentUser;
 
-    // Initialize the dashboard based on user role
-    public void initialize() {
-        currentUser = getCurrentUser();  // Fetch the current user details (can be stored globally)
 
-        // Set visibility based on the role
+    public void initialize() {
+        currentUser = getCurrentUser();
+
         if ("Doctor".equals(currentUser.getRole())) {
-            // Show only the doctor-related buttons
+
             viewAppointmentsBtn.setVisible(true);
             createAppointmentBtn.setVisible(true);
-//            hideAdminButtons();
-        } else if ("Admin".equals(currentUser.getRole())) {
-            // Show all admin-related buttons
+
+        }
+
+        else if ("Admin".equals(currentUser.getRole())) {
+
             manageDoctorsBtn.setVisible(true);
             viewPaymentsBtn.setVisible(true);
             manageSpecializationsBtn.setVisible(true);
             viewPatientAppointmentsBtn.setVisible(true);
             viewDashboardAnalyticsBtn.setVisible(true);
         }
+
+
     }
 
-    // Method to retrieve current user (example, you can modify this to fetch the logged-in user)
+
     private User getCurrentUser() {
-        // Here you would retrieve the current logged-in user from your session or database
-        // This is just a mock-up user for the example
+
         return new User(1, "johndoe", "John", "Doe", "johndoe@example.com", "password", "Doctor", "5551234567");
     }
 
 
-//    private void hideAdminButtons() {
-//        manageDoctorsBtn.setVisible(false);
-//        viewPaymentsBtn.setVisible(false);
-//        manageSpecializationsBtn.setVisible(false);
-//        viewPatientAppointmentsBtn.setVisible(false);
-//        viewDashboardAnalyticsBtn.setVisible(false);
-//    }
 
-    // Handle the action for viewing appointments
+
+
     @FXML
     private void viewAppointments(ActionEvent event) {
         try {
@@ -94,16 +90,16 @@ public class AdminDashboardController {
         }
     }
 
-    // Handle the action for creating appointments
+
     @FXML
     private void createAppointment() {
         try {
-            // Assuming the manage appointments FXML is named manageAppointments.fxml
+
 
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/Appointment/createAppointment.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Create a new stage for the Manage Appointments screen
+
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -114,7 +110,7 @@ public class AdminDashboardController {
         }
     }
 
-    // Handle the action for managing doctors (Admin-specific)
+
     @FXML
     private void manageDoctors(ActionEvent event) {
         try {
@@ -131,7 +127,6 @@ public class AdminDashboardController {
     }
 
 
-    // Handle the action for viewing payments (Admin-specific)
     @FXML
     private void viewPayments(ActionEvent event) {
         try {
@@ -147,7 +142,7 @@ public class AdminDashboardController {
         }
     }
 
-    // Handle the action for managing specializations (Admin-specific)
+
     @FXML
     private void manageSpecializations(ActionEvent event) {
         try {
@@ -163,7 +158,7 @@ public class AdminDashboardController {
         }
     }
 
-    // Handle the action for viewing patient appointments (Admin-specific)
+
     @FXML
     private void viewPatientAppointments(ActionEvent event) {
         try {
@@ -179,7 +174,7 @@ public class AdminDashboardController {
         }
     }
 
-    // Handle the action for viewing dashboard analytics (Admin-specific)
+
     @FXML
     private void viewDashboardAnalytics(ActionEvent event) {
         try {
@@ -195,7 +190,7 @@ public class AdminDashboardController {
         }
     }
 
-    // Log out action
+
     @FXML
     private void logout(ActionEvent event) {
         showAlert(Alert.AlertType.CONFIRMATION, "Log Out", "Are you sure you want to logout?");
@@ -212,7 +207,7 @@ public class AdminDashboardController {
         }
     }
 
-    // Show alerts for errors or successful actions
+
     private boolean showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

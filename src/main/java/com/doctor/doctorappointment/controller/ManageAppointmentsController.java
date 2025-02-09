@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,6 +20,9 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.scene.control.ButtonType;
+import java.sql.PreparedStatement;
+
 
 public class ManageAppointmentsController {
 
@@ -66,8 +70,48 @@ public class ManageAppointmentsController {
 
     @FXML
     public void deleteAppointment() {
-        System.out.println("Delete Appointment button clicked!");
+        Appointment selectedAppointment = appointmentTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedAppointment != null) {
+            int appointmentId = selectedAppointment.getAppointmentId();
+
+            // Confirm with the user before deleting the appointment
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Appointment");
+            alert.setHeaderText("Are you sure you want to delete this appointment?");
+            alert.setContentText("Appointment ID: " + appointmentId);
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    // Proceed with deletion from the database
+                    String query = "DELETE FROM Appointmentsd WHERE appointment_id = ?";
+
+                    try (PreparedStatement pst = DatabaseConnection.getConnection().prepareStatement(query)) {
+                        pst.setInt(1, appointmentId);
+                        int rowsAffected = pst.executeUpdate();
+
+                        if (rowsAffected > 0) {
+                            System.out.println("Appointment deleted successfully!");
+                            // Remove the appointment from the TableView list
+                            appointmentsList.remove(selectedAppointment);
+                        } else {
+                            System.out.println("Error: Appointment not found or could not be deleted.");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Appointment Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select an appointment to delete.");
+            alert.showAndWait();
+        }
     }
+
 
     @FXML
     public void goBack() {
